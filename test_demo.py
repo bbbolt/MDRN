@@ -290,7 +290,7 @@ if __name__ == "__main__":
     parser.add_argument("--model_id", default=0, type=int)
     parser.add_argument("--include_test", action="store_true", help="Inference on the DIV2K test set")
     parser.add_argument("--hybrid_test", action="store_true", help="Hybrid test on DIV2K and LSDIR test set")
-    parser.add_argument("--ssim", action="store_false", help="Calculate SSIM")
+    parser.add_argument("--ssim", action="store_true", help="Calculate SSIM")
 
     args = parser.parse_args()
     pprint(args)
