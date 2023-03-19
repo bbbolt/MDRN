@@ -1,11 +1,11 @@
 # [NTIRE 2023 Challenge on Efficient Super-Resolution](https://cvlai.net/ntire/2023/) @ [CVPR 2023](https://cvpr2023.thecvf.com/)
 
-## How to test the baseline model?
+## How to test the model?
 
-1. `git clone https://github.com/ofsoundof/NTIRE2023_ESR.git`
+1. `git clone https://github.com/bbbolt/MDRN.git`
 2. Select the model you would like to test from [`run.sh`](./run.sh)
     ```bash
-    CUDA_VISIBLE_DEVICES=0 python test_demo.py --data_dir [path to your data dir] --save_dir [path to your save dir] --model_id 0
+    CUDA_VISIBLE_DEVICES=0 python test_demo.py --data_dir [path to your data dir] --save_dir [path to your save dir] --model_id 9
     ```
     - Be sure the change the directories `--data_dir` and `--save_dir`.
    
