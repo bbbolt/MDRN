@@ -22,7 +22,7 @@ Yanyu Mao[^*], Nihao Zhang[^*], Qian Wang[^†], Bendu Bai, Wanying Bai, Haonan 
 
 ## 🔧Installation
 
-```
+```python
 pip install -r requirements.txt -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com
 ```
 
@@ -30,7 +30,7 @@ pip install -r requirements.txt -i http://pypi.douban.com/simple/ --trusted-host
 
 The trainset uses the DIV2K (800) + LSDIR(the first 10k). In order to effectively improve the training speed, images are cropped to 480 * 480 images by running script extract_subimages.py, and the dataloader will further randomly crop the images to the GT_size required for training. GT_size defaults to 128/192/256 (×2/×3/×4). 
 
-```
+```python
 python extract_subimages.py
 ```
 
@@ -40,7 +40,7 @@ The input and output paths of cropped pictures can be modify in this script. Def
 
 ▶️ You can change the training strategy by modifying the configuration file. The default configuration files are included in ./options/train/MDRN. Take one GPU as the example.
 
-```
+```python
 ### Train ###
 ### MDRN ###
 python train.py -opt ./options/train/MDRN/train_mdrn_x2.yml --auto_resume  # ×2
@@ -58,7 +58,7 @@ For more training commands, please check the docs in [BasicSR](https://github.co
 
 ▶️ All benchmark datasets can be obtained from the official website.  You should update the paths in the configuration files based on the paths where benchmark datasets are located on your computer.
 
-```
+```python
 ### Test ###
 ### MDRN ###
 python basicsr/test.py -opt ./options/test/MDRN/test_mdrn_x2.yml  # ×2
@@ -73,3 +73,16 @@ The inference results on benchmark datasets are available at [Google Drive](http
 ## :mailbox:Contact
 
 If you have any questions, please feel free to contact us, [zwyczhang@stu.xupt.edu.cn](mailto:zwyczhang@stu.xupt.edu.cn) and [bolttt@stu.xupt.edu.cn](mailto:bolttt@stu.xupt.edu.cn).
+
+## :rainbow:References
+
+```bibtex
+@inproceedings{mao2023multi,
+  title={Multi-Level Dispersion Residual Network for Efficient Image Super-Resolution},
+  author={Mao, Yanyu and Zhang, Nihao and Wang, Qian and Bai, Bendu and Bai, Wanying and Fang, Haonan and Liu, Peng and Li, Mingyue and Yan, Shengbo},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={1660--1669},
+  year={2023}
+}
+```
+
