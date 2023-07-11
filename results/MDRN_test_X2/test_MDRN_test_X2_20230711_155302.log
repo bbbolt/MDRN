@@ -1,0 +1,911 @@
+2023-07-11 15:53:02,233 INFO: 
+                ____                _       _____  ____
+               / __ ) ____ _ _____ (_)_____/ ___/ / __ \
+              / __  |/ __ `// ___// // ___/\__ \ / /_/ /
+             / /_/ // /_/ /(__  )/ // /__ ___/ // _, _/
+            /_____/ \__,_//____//_/ \___//____//_/ |_|
+     ______                   __   __                 __      __
+    / ____/____   ____   ____/ /  / /   __  __ _____ / /__   / /
+   / / __ / __ \ / __ \ / __  /  / /   / / / // ___// //_/  / /
+  / /_/ // /_/ // /_/ // /_/ /  / /___/ /_/ // /__ / /<    /_/
+  \____/ \____/ \____/ \____/  /_____/\____/ \___//_/|_|  (_)
+    
+Version Information: 
+	BasicSR: 1.3.5
+	PyTorch: 1.9.0+cu111
+	TorchVision: 0.10.0+cu111
+2023-07-11 15:53:02,233 INFO: 
+  name: MDRN_test_X2
+  model_type: SRModel
+  scale: 2
+  num_gpu: 1
+  manual_seed: 0
+  datasets:[
+    test_1:[
+      name: Set5
+      type: PairedImageDataset
+      dataroot_gt: F:\CNN_Trans\testsets\Set5\HR_mod2
+      dataroot_lq: F:\CNN_Trans\testsets\Set5\X2
+      io_backend:[
+        type: disk
+      ]
+      phase: test
+      scale: 2
+    ]
+    test_2:[
+      name: Set14
+      type: PairedImageDataset
+      dataroot_gt: F:\CNN_Trans\testsets\Set14\HR_mod2
+      dataroot_lq: F:\CNN_Trans\testsets\Set14\X2
+      io_backend:[
+        type: disk
+      ]
+      phase: test
+      scale: 2
+    ]
+    test_3:[
+      name: Urban100
+      type: PairedImageDataset
+      dataroot_gt: F:\CNN_Trans\testsets\urban100\HR_mod2
+      dataroot_lq: F:\CNN_Trans\testsets\urban100\X2
+      io_backend:[
+        type: disk
+      ]
+      phase: test
+      scale: 2
+    ]
+    test_4:[
+      name: Manga109
+      type: PairedImageDataset
+      dataroot_gt: F:\CNN_Trans\testsets\Manga109\HR_mod2
+      dataroot_lq: F:\CNN_Trans\testsets\Manga109\X2
+      io_backend:[
+        type: disk
+      ]
+      phase: test
+      scale: 2
+    ]
+    test_5:[
+      name: BSDS100
+      type: PairedImageDataset
+      dataroot_gt: F:\CNN_Trans\testsets\BSDS100\HR_mod2
+      dataroot_lq: F:\CNN_Trans\testsets\BSDS100\X2
+      io_backend:[
+        type: disk
+      ]
+      phase: test
+      scale: 2
+    ]
+  ]
+  network_g:[
+    type: MDRN
+    upscale: 2
+  ]
+  path:[
+    pretrain_network_g: F:\MDRN_train\pretrain_models\mdrn_x2.pth
+    strict_load_g: True
+    param_key_g: params_ema
+    results_root: F:\MDRN_train\results\MDRN_test_X2
+    log: F:\MDRN_train\results\MDRN_test_X2
+    visualization: F:\MDRN_train\results\MDRN_test_X2\visualization
+  ]
+  val:[
+    save_img: True
+    suffix: None
+    metrics:[
+      psnr:[
+        type: calculate_psnr
+        crop_border: 2
+        test_y_channel: True
+      ]
+      ssim:[
+        type: calculate_ssim
+        crop_border: 2
+        test_y_channel: True
+      ]
+    ]
+  ]
+  dist: False
+  rank: 0
+  world_size: 1
+  auto_resume: False
+  is_train: False
+
+2023-07-11 15:53:02,233 INFO: Dataset [PairedImageDataset] - Set5 is built.
+2023-07-11 15:53:02,233 INFO: Number of test images in Set5: 5
+2023-07-11 15:53:02,234 INFO: Dataset [PairedImageDataset] - Set14 is built.
+2023-07-11 15:53:02,234 INFO: Number of test images in Set14: 14
+2023-07-11 15:53:02,239 INFO: Dataset [PairedImageDataset] - Urban100 is built.
+2023-07-11 15:53:02,239 INFO: Number of test images in Urban100: 100
+2023-07-11 15:53:02,244 INFO: Dataset [PairedImageDataset] - Manga109 is built.
+2023-07-11 15:53:02,244 INFO: Number of test images in Manga109: 109
+2023-07-11 15:53:02,248 INFO: Dataset [PairedImageDataset] - BSDS100 is built.
+2023-07-11 15:53:02,248 INFO: Number of test images in BSDS100: 100
+2023-07-11 15:53:02,272 INFO: Network [MDRN] is created.
+2023-07-11 15:53:03,342 INFO: Network: MDRN, with parameters: 303,724
+2023-07-11 15:53:03,342 INFO: MDRN(
+  (fea_conv): Conv2d(3, 56, kernel_size=(3, 3), stride=(1, 1), padding=same)
+  (B1): EADB(
+    (c1_d): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1))
+    (c1_r): BSConvU(
+      (pw): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=56, padding_mode=reflect)
+    )
+    (c2_d): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1))
+    (c2_r): BSConvU(
+      (pw): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=56, padding_mode=reflect)
+    )
+    (c3_d): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1))
+    (c3_r): BSConvU(
+      (pw): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=56, padding_mode=reflect)
+    )
+    (c4): BSConvU(
+      (pw): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(28, 28, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=28, padding_mode=reflect)
+    )
+    (act): GELU()
+    (c5): Conv2d(112, 56, kernel_size=(1, 1), stride=(1, 1))
+    (esa): MDSA(
+      (body): Sequential(
+        (0): ESA(
+          (conv1): Conv2d(56, 14, kernel_size=(1, 1), stride=(1, 1))
+          (conv_f): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1))
+          (conv2_0): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv2_1): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv2_2): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv2_3): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (maxPooling_0): MaxPool2d(kernel_size=3, stride=3, padding=1, dilation=1, ceil_mode=False)
+          (maxPooling_1): MaxPool2d(kernel_size=5, stride=3, padding=0, dilation=1, ceil_mode=False)
+          (maxPooling_2): MaxPool2d(kernel_size=7, stride=3, padding=1, dilation=1, ceil_mode=False)
+          (conv_max_0): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv_max_1): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv_max_2): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv3_0): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv3_1): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv3_2): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv4): Conv2d(14, 56, kernel_size=(1, 1), stride=(1, 1))
+          (sigmoid): Sigmoid()
+          (GELU): GELU()
+        )
+      )
+    )
+    (cca): ECCA(
+      (body): Sequential(
+        (0): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), padding=same)
+        (1): GELU()
+        (2): CCALayer(
+          (avg_pool): AdaptiveAvgPool2d(output_size=1)
+          (conv_du): Sequential(
+            (0): Conv2d(56, 3, kernel_size=(1, 1), stride=(1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv2d(3, 56, kernel_size=(1, 1), stride=(1, 1))
+            (3): Sigmoid()
+          )
+        )
+        (3): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=same, groups=56)
+      )
+    )
+  )
+  (B2): EADB(
+    (c1_d): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1))
+    (c1_r): BSConvU(
+      (pw): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=56, padding_mode=reflect)
+    )
+    (c2_d): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1))
+    (c2_r): BSConvU(
+      (pw): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=56, padding_mode=reflect)
+    )
+    (c3_d): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1))
+    (c3_r): BSConvU(
+      (pw): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=56, padding_mode=reflect)
+    )
+    (c4): BSConvU(
+      (pw): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(28, 28, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=28, padding_mode=reflect)
+    )
+    (act): GELU()
+    (c5): Conv2d(112, 56, kernel_size=(1, 1), stride=(1, 1))
+    (esa): MDSA(
+      (body): Sequential(
+        (0): ESA(
+          (conv1): Conv2d(56, 14, kernel_size=(1, 1), stride=(1, 1))
+          (conv_f): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1))
+          (conv2_0): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv2_1): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv2_2): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv2_3): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (maxPooling_0): MaxPool2d(kernel_size=3, stride=3, padding=1, dilation=1, ceil_mode=False)
+          (maxPooling_1): MaxPool2d(kernel_size=5, stride=3, padding=0, dilation=1, ceil_mode=False)
+          (maxPooling_2): MaxPool2d(kernel_size=7, stride=3, padding=1, dilation=1, ceil_mode=False)
+          (conv_max_0): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv_max_1): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv_max_2): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv3_0): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv3_1): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv3_2): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv4): Conv2d(14, 56, kernel_size=(1, 1), stride=(1, 1))
+          (sigmoid): Sigmoid()
+          (GELU): GELU()
+        )
+      )
+    )
+    (cca): ECCA(
+      (body): Sequential(
+        (0): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), padding=same)
+        (1): GELU()
+        (2): CCALayer(
+          (avg_pool): AdaptiveAvgPool2d(output_size=1)
+          (conv_du): Sequential(
+            (0): Conv2d(56, 3, kernel_size=(1, 1), stride=(1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv2d(3, 56, kernel_size=(1, 1), stride=(1, 1))
+            (3): Sigmoid()
+          )
+        )
+        (3): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=same, groups=56)
+      )
+    )
+  )
+  (B3): EADB(
+    (c1_d): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1))
+    (c1_r): BSConvU(
+      (pw): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=56, padding_mode=reflect)
+    )
+    (c2_d): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1))
+    (c2_r): BSConvU(
+      (pw): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=56, padding_mode=reflect)
+    )
+    (c3_d): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1))
+    (c3_r): BSConvU(
+      (pw): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=56, padding_mode=reflect)
+    )
+    (c4): BSConvU(
+      (pw): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(28, 28, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=28, padding_mode=reflect)
+    )
+    (act): GELU()
+    (c5): Conv2d(112, 56, kernel_size=(1, 1), stride=(1, 1))
+    (esa): MDSA(
+      (body): Sequential(
+        (0): ESA(
+          (conv1): Conv2d(56, 14, kernel_size=(1, 1), stride=(1, 1))
+          (conv_f): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1))
+          (conv2_0): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv2_1): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv2_2): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv2_3): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (maxPooling_0): MaxPool2d(kernel_size=3, stride=3, padding=1, dilation=1, ceil_mode=False)
+          (maxPooling_1): MaxPool2d(kernel_size=5, stride=3, padding=0, dilation=1, ceil_mode=False)
+          (maxPooling_2): MaxPool2d(kernel_size=7, stride=3, padding=1, dilation=1, ceil_mode=False)
+          (conv_max_0): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv_max_1): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv_max_2): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv3_0): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv3_1): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv3_2): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv4): Conv2d(14, 56, kernel_size=(1, 1), stride=(1, 1))
+          (sigmoid): Sigmoid()
+          (GELU): GELU()
+        )
+      )
+    )
+    (cca): ECCA(
+      (body): Sequential(
+        (0): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), padding=same)
+        (1): GELU()
+        (2): CCALayer(
+          (avg_pool): AdaptiveAvgPool2d(output_size=1)
+          (conv_du): Sequential(
+            (0): Conv2d(56, 3, kernel_size=(1, 1), stride=(1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv2d(3, 56, kernel_size=(1, 1), stride=(1, 1))
+            (3): Sigmoid()
+          )
+        )
+        (3): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=same, groups=56)
+      )
+    )
+  )
+  (B4): EADB(
+    (c1_d): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1))
+    (c1_r): BSConvU(
+      (pw): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=56, padding_mode=reflect)
+    )
+    (c2_d): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1))
+    (c2_r): BSConvU(
+      (pw): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=56, padding_mode=reflect)
+    )
+    (c3_d): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1))
+    (c3_r): BSConvU(
+      (pw): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=56, padding_mode=reflect)
+    )
+    (c4): BSConvU(
+      (pw): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(28, 28, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=28, padding_mode=reflect)
+    )
+    (act): GELU()
+    (c5): Conv2d(112, 56, kernel_size=(1, 1), stride=(1, 1))
+    (esa): MDSA(
+      (body): Sequential(
+        (0): ESA(
+          (conv1): Conv2d(56, 14, kernel_size=(1, 1), stride=(1, 1))
+          (conv_f): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1))
+          (conv2_0): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv2_1): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv2_2): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv2_3): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (maxPooling_0): MaxPool2d(kernel_size=3, stride=3, padding=1, dilation=1, ceil_mode=False)
+          (maxPooling_1): MaxPool2d(kernel_size=5, stride=3, padding=0, dilation=1, ceil_mode=False)
+          (maxPooling_2): MaxPool2d(kernel_size=7, stride=3, padding=1, dilation=1, ceil_mode=False)
+          (conv_max_0): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv_max_1): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv_max_2): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv3_0): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv3_1): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv3_2): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv4): Conv2d(14, 56, kernel_size=(1, 1), stride=(1, 1))
+          (sigmoid): Sigmoid()
+          (GELU): GELU()
+        )
+      )
+    )
+    (cca): ECCA(
+      (body): Sequential(
+        (0): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), padding=same)
+        (1): GELU()
+        (2): CCALayer(
+          (avg_pool): AdaptiveAvgPool2d(output_size=1)
+          (conv_du): Sequential(
+            (0): Conv2d(56, 3, kernel_size=(1, 1), stride=(1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv2d(3, 56, kernel_size=(1, 1), stride=(1, 1))
+            (3): Sigmoid()
+          )
+        )
+        (3): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=same, groups=56)
+      )
+    )
+  )
+  (B5): EADB(
+    (c1_d): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1))
+    (c1_r): BSConvU(
+      (pw): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=56, padding_mode=reflect)
+    )
+    (c2_d): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1))
+    (c2_r): BSConvU(
+      (pw): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=56, padding_mode=reflect)
+    )
+    (c3_d): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1))
+    (c3_r): BSConvU(
+      (pw): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=56, padding_mode=reflect)
+    )
+    (c4): BSConvU(
+      (pw): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(28, 28, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=28, padding_mode=reflect)
+    )
+    (act): GELU()
+    (c5): Conv2d(112, 56, kernel_size=(1, 1), stride=(1, 1))
+    (esa): MDSA(
+      (body): Sequential(
+        (0): ESA(
+          (conv1): Conv2d(56, 14, kernel_size=(1, 1), stride=(1, 1))
+          (conv_f): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1))
+          (conv2_0): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv2_1): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv2_2): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv2_3): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (maxPooling_0): MaxPool2d(kernel_size=3, stride=3, padding=1, dilation=1, ceil_mode=False)
+          (maxPooling_1): MaxPool2d(kernel_size=5, stride=3, padding=0, dilation=1, ceil_mode=False)
+          (maxPooling_2): MaxPool2d(kernel_size=7, stride=3, padding=1, dilation=1, ceil_mode=False)
+          (conv_max_0): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv_max_1): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv_max_2): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv3_0): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv3_1): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv3_2): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv4): Conv2d(14, 56, kernel_size=(1, 1), stride=(1, 1))
+          (sigmoid): Sigmoid()
+          (GELU): GELU()
+        )
+      )
+    )
+    (cca): ECCA(
+      (body): Sequential(
+        (0): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), padding=same)
+        (1): GELU()
+        (2): CCALayer(
+          (avg_pool): AdaptiveAvgPool2d(output_size=1)
+          (conv_du): Sequential(
+            (0): Conv2d(56, 3, kernel_size=(1, 1), stride=(1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv2d(3, 56, kernel_size=(1, 1), stride=(1, 1))
+            (3): Sigmoid()
+          )
+        )
+        (3): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=same, groups=56)
+      )
+    )
+  )
+  (B6): EADB(
+    (c1_d): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1))
+    (c1_r): BSConvU(
+      (pw): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=56, padding_mode=reflect)
+    )
+    (c2_d): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1))
+    (c2_r): BSConvU(
+      (pw): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=56, padding_mode=reflect)
+    )
+    (c3_d): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1))
+    (c3_r): BSConvU(
+      (pw): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=56, padding_mode=reflect)
+    )
+    (c4): BSConvU(
+      (pw): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(28, 28, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=28, padding_mode=reflect)
+    )
+    (act): GELU()
+    (c5): Conv2d(112, 56, kernel_size=(1, 1), stride=(1, 1))
+    (esa): MDSA(
+      (body): Sequential(
+        (0): ESA(
+          (conv1): Conv2d(56, 14, kernel_size=(1, 1), stride=(1, 1))
+          (conv_f): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1))
+          (conv2_0): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv2_1): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv2_2): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv2_3): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (maxPooling_0): MaxPool2d(kernel_size=3, stride=3, padding=1, dilation=1, ceil_mode=False)
+          (maxPooling_1): MaxPool2d(kernel_size=5, stride=3, padding=0, dilation=1, ceil_mode=False)
+          (maxPooling_2): MaxPool2d(kernel_size=7, stride=3, padding=1, dilation=1, ceil_mode=False)
+          (conv_max_0): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv_max_1): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv_max_2): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv3_0): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv3_1): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv3_2): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv4): Conv2d(14, 56, kernel_size=(1, 1), stride=(1, 1))
+          (sigmoid): Sigmoid()
+          (GELU): GELU()
+        )
+      )
+    )
+    (cca): ECCA(
+      (body): Sequential(
+        (0): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), padding=same)
+        (1): GELU()
+        (2): CCALayer(
+          (avg_pool): AdaptiveAvgPool2d(output_size=1)
+          (conv_du): Sequential(
+            (0): Conv2d(56, 3, kernel_size=(1, 1), stride=(1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv2d(3, 56, kernel_size=(1, 1), stride=(1, 1))
+            (3): Sigmoid()
+          )
+        )
+        (3): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=same, groups=56)
+      )
+    )
+  )
+  (B7): EADB(
+    (c1_d): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1))
+    (c1_r): BSConvU(
+      (pw): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=56, padding_mode=reflect)
+    )
+    (c2_d): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1))
+    (c2_r): BSConvU(
+      (pw): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=56, padding_mode=reflect)
+    )
+    (c3_d): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1))
+    (c3_r): BSConvU(
+      (pw): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=56, padding_mode=reflect)
+    )
+    (c4): BSConvU(
+      (pw): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(28, 28, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=28, padding_mode=reflect)
+    )
+    (act): GELU()
+    (c5): Conv2d(112, 56, kernel_size=(1, 1), stride=(1, 1))
+    (esa): MDSA(
+      (body): Sequential(
+        (0): ESA(
+          (conv1): Conv2d(56, 14, kernel_size=(1, 1), stride=(1, 1))
+          (conv_f): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1))
+          (conv2_0): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv2_1): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv2_2): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv2_3): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (maxPooling_0): MaxPool2d(kernel_size=3, stride=3, padding=1, dilation=1, ceil_mode=False)
+          (maxPooling_1): MaxPool2d(kernel_size=5, stride=3, padding=0, dilation=1, ceil_mode=False)
+          (maxPooling_2): MaxPool2d(kernel_size=7, stride=3, padding=1, dilation=1, ceil_mode=False)
+          (conv_max_0): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv_max_1): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv_max_2): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv3_0): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv3_1): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv3_2): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv4): Conv2d(14, 56, kernel_size=(1, 1), stride=(1, 1))
+          (sigmoid): Sigmoid()
+          (GELU): GELU()
+        )
+      )
+    )
+    (cca): ECCA(
+      (body): Sequential(
+        (0): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), padding=same)
+        (1): GELU()
+        (2): CCALayer(
+          (avg_pool): AdaptiveAvgPool2d(output_size=1)
+          (conv_du): Sequential(
+            (0): Conv2d(56, 3, kernel_size=(1, 1), stride=(1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv2d(3, 56, kernel_size=(1, 1), stride=(1, 1))
+            (3): Sigmoid()
+          )
+        )
+        (3): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=same, groups=56)
+      )
+    )
+  )
+  (B8): EADB(
+    (c1_d): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1))
+    (c1_r): BSConvU(
+      (pw): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=56, padding_mode=reflect)
+    )
+    (c2_d): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1))
+    (c2_r): BSConvU(
+      (pw): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=56, padding_mode=reflect)
+    )
+    (c3_d): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1))
+    (c3_r): BSConvU(
+      (pw): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=56, padding_mode=reflect)
+    )
+    (c4): BSConvU(
+      (pw): Conv2d(56, 28, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (dw): Conv2d(28, 28, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=28, padding_mode=reflect)
+    )
+    (act): GELU()
+    (c5): Conv2d(112, 56, kernel_size=(1, 1), stride=(1, 1))
+    (esa): MDSA(
+      (body): Sequential(
+        (0): ESA(
+          (conv1): Conv2d(56, 14, kernel_size=(1, 1), stride=(1, 1))
+          (conv_f): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1))
+          (conv2_0): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv2_1): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv2_2): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv2_3): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (maxPooling_0): MaxPool2d(kernel_size=3, stride=3, padding=1, dilation=1, ceil_mode=False)
+          (maxPooling_1): MaxPool2d(kernel_size=5, stride=3, padding=0, dilation=1, ceil_mode=False)
+          (maxPooling_2): MaxPool2d(kernel_size=7, stride=3, padding=1, dilation=1, ceil_mode=False)
+          (conv_max_0): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv_max_1): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv_max_2): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv3_0): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv3_1): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv3_2): BSConvU(
+            (pw): Conv2d(14, 14, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (dw): Conv2d(14, 14, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=14, padding_mode=reflect)
+          )
+          (conv4): Conv2d(14, 56, kernel_size=(1, 1), stride=(1, 1))
+          (sigmoid): Sigmoid()
+          (GELU): GELU()
+        )
+      )
+    )
+    (cca): ECCA(
+      (body): Sequential(
+        (0): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), padding=same)
+        (1): GELU()
+        (2): CCALayer(
+          (avg_pool): AdaptiveAvgPool2d(output_size=1)
+          (conv_du): Sequential(
+            (0): Conv2d(56, 3, kernel_size=(1, 1), stride=(1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv2d(3, 56, kernel_size=(1, 1), stride=(1, 1))
+            (3): Sigmoid()
+          )
+        )
+        (3): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=same, groups=56)
+      )
+    )
+  )
+  (c1): Conv2d(448, 56, kernel_size=(1, 1), stride=(1, 1))
+  (GELU): GELU()
+  (c2): BSConvU(
+    (pw): Conv2d(56, 56, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (dw): Conv2d(56, 56, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=56, padding_mode=reflect)
+  )
+  (upsampler): PixelShuffleDirect(
+    (upsampleOneStep): UpsampleOneStep(
+      (0): Conv2d(56, 12, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (1): PixelShuffle(upscale_factor=2)
+    )
+  )
+)
+2023-07-11 15:53:03,383 INFO: Loading MDRN model from F:\MDRN_train\pretrain_models\mdrn_x2.pth, with param key: [params_ema].
+2023-07-11 15:53:03,436 INFO: Model [SRModel] is created.
+2023-07-11 15:53:03,436 INFO: Testing Set5...
+2023-07-11 15:53:06,290 INFO: Validation Set5
+	 # psnr: 38.1094	Best: 38.1094 @ MDRN_test_X2 iter
+	 # ssim: 0.9610	Best: 0.9610 @ MDRN_test_X2 iter
+
+2023-07-11 15:53:06,290 INFO: Testing Set14...
+2023-07-11 15:53:10,911 INFO: Validation Set14
+	 # psnr: 33.8357	Best: 33.8357 @ MDRN_test_X2 iter
+	 # ssim: 0.9205	Best: 0.9205 @ MDRN_test_X2 iter
+
+2023-07-11 15:53:10,912 INFO: Testing Urban100...
+2023-07-11 15:54:21,502 INFO: Validation Urban100
+	 # psnr: 32.8438	Best: 32.8438 @ MDRN_test_X2 iter
+	 # ssim: 0.9350	Best: 0.9350 @ MDRN_test_X2 iter
+
+2023-07-11 15:54:21,505 INFO: Testing Manga109...
+2023-07-11 15:55:47,358 INFO: Validation Manga109
+	 # psnr: 39.1376	Best: 39.1376 @ MDRN_test_X2 iter
+	 # ssim: 0.9782	Best: 0.9782 @ MDRN_test_X2 iter
+
+2023-07-11 15:55:47,361 INFO: Testing BSDS100...
+2023-07-11 15:56:01,251 INFO: Validation BSDS100
+	 # psnr: 32.3177	Best: 32.3177 @ MDRN_test_X2 iter
+	 # ssim: 0.9016	Best: 0.9016 @ MDRN_test_X2 iter
+
