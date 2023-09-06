@@ -77,12 +77,13 @@ If you have any questions, please feel free to contact us, [zwyczhang@stu.xupt.e
 ## :rainbow:References
 
 ```bibtex
-@inproceedings{mao2023multi,
-  title={Multi-Level Dispersion Residual Network for Efficient Image Super-Resolution},
-  author={Mao, Yanyu and Zhang, Nihao and Wang, Qian and Bai, Bendu and Bai, Wanying and Fang, Haonan and Liu, Peng and Li, Mingyue and Yan, Shengbo},
-  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
-  pages={1660--1669},
-  year={2023}
+@InProceedings{Mao_2023_CVPR,
+    author    = {Mao, Yanyu and Zhang, Nihao and Wang, Qian and Bai, Bendu and Bai, Wanying and Fang, Haonan and Liu, Peng and Li, Mingyue and Yan, Shengbo},
+    title     = {Multi-Level Dispersion Residual Network for Efficient Image Super-Resolution},
+    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) Workshops},
+    month     = {June},
+    year      = {2023},
+    pages     = {1660-1669}
 }
 ```
 
